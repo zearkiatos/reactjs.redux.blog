@@ -11,25 +11,13 @@ class App extends Component {
 
   async componentDidMount() {
     const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-    console.log(`${response}`)
     this.setState({
-      users: [
-        {
-          name: "Pedro Capriles",
-          email: "caprilespe@outlook.com",
-          website: "pedrocapriles.io"
-        },
-        {
-          name: "Platzi",
-          email: "platzi@platzi.com",
-          website: "platzi.com"
-        }
-      ]
+      users: response.data
     });
   }
   ponerFilas = () =>
     this.state.users.map(user => (
-      <tr>
+      <tr key={user.id}>
         <td>{user.name}</td>
         <td>{user.email}</td>
         <td>{user.website}</td>
