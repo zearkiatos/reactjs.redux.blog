@@ -25,7 +25,7 @@ class Users extends Component {
     ));
   render() {
     return (
-      <div className="m-100">
+      <div>
         <table className="table">
           <thead>
             <tr>

@@ -6,8 +6,10 @@ import Tasks from './Tasks'
 const App = () => (
   <BrowserRouter>
     <Menu />
-    <Route exact path='/' component={Users}/>
-    <Route exact path='/tasks' component={Tasks}/>
+    <div className="m-100">
+      <Route exact path='/' component={Users}/>
+      <Route exact path='/tasks' component={Tasks}/>
+    </div>
   </BrowserRouter>
 );
 
