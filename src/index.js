@@ -4,8 +4,14 @@ import "./index.css";
 import App from "./components/App";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import reducers from "./reducers";
 const store = createStore(
-    {}, //All reducers
-    {}  //Initial State
+  reducers, //All reducers
+  {} //Initial State
 );
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
