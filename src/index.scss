@@ -1,3 +1,7 @@
+@import './styles/variables';
+body {
+    margin:0;
+}
 .m-100 {
     margin:100px;
 }
@@ -8,5 +12,15 @@
     td {
         padding-top:10px;
         padding-bottom:10px;
+    }
+}
+
+#menu {
+    background-color:$principalColor;
+    padding:20px;
+    font-size:20px;
+    a {
+        color:white;
+        padding-right:50px;
     }
 }
