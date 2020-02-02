@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .m-100 {
   margin: 100px;
 }
@@ -9,6 +13,16 @@
 .table td {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+#menu {
+  background-color: #253A46;
+  padding: 20px;
+  font-size: 20px;
+}
+#menu a {
+  color: white;
+  padding-right: 50px;
 }
 
 /*# sourceMappingURL=index.css.map */
