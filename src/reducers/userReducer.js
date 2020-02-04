@@ -1,8 +1,8 @@
-const BEGIN_USERS_STATE = {
+const BEGIN_USER_STATE = {
   users: []
 };
 
-export default (state = BEGIN_USERS_STATE, action) => {
+export default (state = BEGIN_USER_STATE, action) => {
   switch (action.type) {
     case "getUsers":
       return {
