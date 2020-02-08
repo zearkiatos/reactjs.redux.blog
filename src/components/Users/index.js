@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import axios from 'axios';
 import { connect } from 'react-redux';
 import * as userAction from '../../actions/userAction';
 class Users extends Component {
 
   componentDidMount() {
-    // const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-    // this.setState({
-    //   users: response.data
-    // });
     this.props.getUsers();
   }
   ponerFilas = () =>
@@ -20,7 +15,6 @@ class Users extends Component {
       </tr>
     ));
   render() {
-    console.log(this.props);
     return (
       <div>
         <table className="table">
