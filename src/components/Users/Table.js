@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-const TableComponent = props => {
+import '@fortawesome/fontawesome-free/css/all.css';
+const Table = props => {
   const ponerFilas = () =>
-    props.users.map(user => (
+    props.users.map((user,key) => (
       <tr key={user.id}>
         <td>{user.name}</td>
         <td>{user.email}</td>
         <td>{user.website}</td>
+        <td><i className="fas fa-eye"></i></td>
       </tr>
     ));
   return (
@@ -17,6 +19,7 @@ const TableComponent = props => {
             <th>Full Name</th>
             <th>Email</th>
             <th>Website</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>{ponerFilas()}</tbody>
@@ -27,4 +30,4 @@ const TableComponent = props => {
 const mapStateToProps = reducers => {
   return reducers.userReducer;
 };
-export default connect(mapStateToProps)(TableComponent);
+export default connect(mapStateToProps)(Table);

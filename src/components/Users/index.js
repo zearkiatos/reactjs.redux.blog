@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as userAction from "../../actions/userAction";
 import Spinner from "../general/Spinner";
 import Fatal from "../general/Fatal";
-import TableComponent from "./TableComponent";
+import Table from "./Table";
 class Users extends Component {
   componentDidMount() {
     this.props.getUsers();
@@ -16,7 +16,7 @@ class Users extends Component {
     if (this.props.error) {
       return <Fatal message={this.props.error} />;
     }
-    return <TableComponent/>
+    return <Table/>
   };
 
   render() {
