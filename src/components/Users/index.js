@@ -1,11 +1,30 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
-import * as userAction from '../../actions/userAction';
+import { connect } from "react-redux";
+import * as userAction from "../../actions/userAction";
+import Spinner from '../general/Spinner';
 class Users extends Component {
-
   componentDidMount() {
     this.props.getUsers();
   }
+  ponerContenido = () => {
+    if (this.props.loading) {
+      return (
+        <Spinner />
+      );
+    }
+    return (
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Website</th>
+          </tr>
+        </thead>
+        <tbody>{this.ponerFilas()}</tbody>
+      </table>
+    );
+  };
   ponerFilas = () =>
     this.props.users.map(user => (
       <tr key={user.id}>
@@ -15,25 +34,12 @@ class Users extends Component {
       </tr>
     ));
   render() {
-    return (
-      <div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Website</th>
-            </tr>
-          </thead>
-          <tbody>{this.ponerFilas()}</tbody>
-        </table>
-      </div>
-    );
+    return <div>{this.ponerContenido()}</div>;
   }
 }
 
-const mapStateToProps = (reducers) => {
+const mapStateToProps = reducers => {
   return reducers.userReducer;
-}
+};
 
 export default connect(mapStateToProps, userAction)(Users);
