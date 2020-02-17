@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../actions/userAction";
 import Spinner from '../general/Spinner';
+import Fatal from '../general/Fatal';
 class Users extends Component {
   componentDidMount() {
     this.props.getUsers();
@@ -11,6 +12,10 @@ class Users extends Component {
       return (
         <Spinner />
       );
+    }
+
+    if(this.props.error) {
+      return <Fatal message={this.props.error} />;
     }
     return (
       <table className="table">

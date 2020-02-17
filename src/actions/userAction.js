@@ -6,7 +6,7 @@ export const getUsers = () => async dispatch => {
   })
   try {
     const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
+      "https://jsonplaceholder.typicode.com/user"
     );
     dispatch({
       type: GET_USERS,
@@ -16,7 +16,7 @@ export const getUsers = () => async dispatch => {
     console.log(`Error: ${error.message}`);
     dispatch({
       type: ERROR,
-      payload: error.message
+      payload: 'Something was wrong, reject late'
     });
   }
 };
