@@ -1,45 +1,33 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../actions/userAction";
-import Spinner from '../general/Spinner';
-import Fatal from '../general/Fatal';
+import Spinner from "../general/Spinner";
+import Fatal from "../general/Fatal";
+import TableComponent from "./TableComponent";
 class Users extends Component {
   componentDidMount() {
     this.props.getUsers();
   }
   ponerContenido = () => {
     if (this.props.loading) {
-      return (
-        <Spinner />
-      );
+      return <Spinner />;
     }
 
-    if(this.props.error) {
+    if (this.props.error) {
       return <Fatal message={this.props.error} />;
     }
-    return (
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Website</th>
-          </tr>
-        </thead>
-        <tbody>{this.ponerFilas()}</tbody>
-      </table>
-    );
+    return <TableComponent/>
   };
-  ponerFilas = () =>
-    this.props.users.map(user => (
-      <tr key={user.id}>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td>{user.website}</td>
-      </tr>
-    ));
+
   render() {
-    return <div>{this.ponerContenido()}</div>;
+    return (
+      <div>
+        <h1>
+          Users
+        </h1>
+        {this.ponerContenido()}
+      </div>
+    );
   }
 }
 
