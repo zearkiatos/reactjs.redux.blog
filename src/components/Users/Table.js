@@ -1,14 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import '@fortawesome/fontawesome-free/css/all.css';
+import "@fortawesome/fontawesome-free/css/all.css";
+import { Link } from "react-router-dom";
+import "../../styles/icons.css";
 const Table = props => {
   const ponerFilas = () =>
-    props.users.map((user,key) => (
+    props.users.map((user, key) => (
       <tr key={user.id}>
         <td>{user.name}</td>
         <td>{user.email}</td>
         <td>{user.website}</td>
-        <td><i className="fas fa-eye"></i></td>
+        <td>
+          <Link className="anchor" to={`/publications/${key}`}>
+            <i className="fas fa-eye"></i>
+          </Link>
+        </td>
       </tr>
     ));
   return (
