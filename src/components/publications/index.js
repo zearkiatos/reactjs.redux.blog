@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../actions/userAction";
+import * as publicationAction from "../../actions/publicationAction";
 class Publications extends Component {
   componentDidMount() {
-    if (!this.props.users.lenght) {
+    const {userReducer} = this.props;
+    if (!userReducer.users.lenght) {
       this.props.getUsers()
     }
   }
@@ -17,7 +19,14 @@ class Publications extends Component {
     );
   }
 }
-const mapStateToProps = reducers => {
-  return reducers.userReducer;
+const mapStateToProps = ({userReducer, publicationReducer}) => {
+  return {
+    userReducer,
+    publicationReducer
+  }
 };
+const mapDispatchToProps = {
+  ...userAction,
+  ...publicationAction
+}
 export default connect(mapStateToProps, userAction)(Publications);
