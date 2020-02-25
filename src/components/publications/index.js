@@ -4,13 +4,14 @@ import * as userAction from "../../actions/userAction";
 import * as publicationAction from "../../actions/publicationAction";
 
 const { getUsers } = userAction;
-const { getPublications } = publicationAction;
+const { getPublicationByUser } = publicationAction;
 
 class Publications extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     if (! this.props.userReducer.users.length) {
-      this.props.getUsers();
+      await this.props.getUsers();
     }
+    this.props.getPublicationByUser(this.props.match.params.key);
   }
   render() {
     console.log(this.props);
@@ -30,6 +31,6 @@ const mapStateToProps = ({ userReducer, publicationReducer }) => {
 };
 const mapDispatchToProps = {
   getUsers,
-  getPublications
+  getPublicationByUser
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Publications);

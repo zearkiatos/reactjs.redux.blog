@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_PUBLICATIONS, LOADING, ERROR } from "../types/publicationType";
+import { GET_PUBLICATIONS, GET_PUBLICATION_BY_USER, LOADING, ERROR } from "../types/publicationType";
 export const getPublications = () => async dispatch => {
   dispatch({
     type: LOADING
@@ -20,3 +20,14 @@ export const getPublications = () => async dispatch => {
     });
   }
 };
+
+export const getPublicationByUser = (key) => async (dispatch, getState) => {
+    const { users } = getState().userReducer;
+    const user_id = users[key].id;
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
+    dispatch({
+        type: GET_PUBLICATION_BY_USER,
+        payload: response.data
+
+    });
+}
