@@ -1,5 +1,7 @@
 import axios from "axios";
 import { GET_PUBLICATIONS, GET_PUBLICATION_BY_USER, LOADING, ERROR } from "../types/publicationType";
+import * as userType from '../types/userType';
+const { GET_USERS } = userType;
 export const getPublications = () => async dispatch => {
   dispatch({
     type: LOADING
@@ -30,6 +32,17 @@ export const getPublicationByUser = (key) => async (dispatch, getState) => {
       ...publications,
       response.data
     ];
+    const publicationKey = updatedPublication.length - 1;
+    const updatedUser =    [ ...users ];
+    updatedUser[key]={
+      ...users[key],
+      publicationKey
+    }
+    dispatch({
+      type: GET_USERS,
+      payload: updatedUser
+
+  });
     dispatch({
         type: GET_PUBLICATION_BY_USER,
         payload: updatedPublication
