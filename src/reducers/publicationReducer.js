@@ -1,4 +1,4 @@
-import { GET_PUBLICATIONS, GET_PUBLICATION_BY_USER, LOADING, ERROR } from "../types/publicationType";
+import { GET_PUBLICATION_BY_USER, LOADING, ERROR } from "../types/publicationType";
 const BEGIN_PUBLICATION_STATE = {
   publications: [],
   loading: false,
@@ -7,7 +7,7 @@ const BEGIN_PUBLICATION_STATE = {
 
 export default (state = BEGIN_PUBLICATION_STATE, action) => {
   switch (action.type) {
-    case GET_PUBLICATIONS || GET_PUBLICATION_BY_USER:
+    case  GET_PUBLICATION_BY_USER:
       return {
         ...state,
         publications: action.payload,

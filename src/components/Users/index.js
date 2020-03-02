@@ -6,7 +6,9 @@ import Fatal from "../general/Fatal";
 import Table from "./Table";
 class Users extends Component {
   componentDidMount() {
-    this.props.getUsers();
+    if (!this.props.users) {
+      this.props.getUsers();
+    }
   }
   ponerContenido = () => {
     if (this.props.loading) {
@@ -16,15 +18,13 @@ class Users extends Component {
     if (this.props.error) {
       return <Fatal message={this.props.error} />;
     }
-    return <Table/>
+    return <Table />;
   };
 
   render() {
     return (
       <div>
-        <h1>
-          Users
-        </h1>
+        <h1>Users</h1>
         {this.ponerContenido()}
       </div>
     );

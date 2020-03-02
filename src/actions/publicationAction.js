@@ -23,11 +23,16 @@ export const getPublications = () => async dispatch => {
 
 export const getPublicationByUser = (key) => async (dispatch, getState) => {
     const { users } = getState().userReducer;
+    const { publications } = getState().publicationReducer;
     const user_id = users[key].id;
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
+    const updatedPublication = [
+      ...publications,
+      response.data
+    ];
     dispatch({
         type: GET_PUBLICATION_BY_USER,
-        payload: response.data
+        payload: updatedPublication
 
     });
 }
