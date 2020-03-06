@@ -46,13 +46,53 @@ class Publications extends Component {
 
     return <h1>publications of {name}</h1>;
   };
+
+  postPublications = () => {
+    const {
+      userReducer,
+      userReducer: { users },
+      publicationReducer,
+      publicationReducer: { publications },
+      match: {
+        params: { key }
+      }
+    } = this.props;
+
+    if (!users.length) return;
+
+    if (userReducer.error) return;
+
+    if (publicationReducer.loading) {
+      return <Spinner />;
+    }
+
+    if (publicationReducer.error) {
+      return <Fatal message={publicationReducer.error} />;
+    }
+
+    if (!publications.length) return;
+    
+    if (!("publicaciones_key" in users[key])) return;
+
+    const { publications_key } = users[key];
+
+    return publications[publications_key].map((publication) => {
+      return ( <div className="pub_title">
+            <h2>
+              {publication.title}
+            </h2>
+            <h3>
+              {publication.body}
+            </h3>
+      </div>);
+    });
+  };
   render() {
     console.log(this.props);
     return (
       <Fragment>
-        <h1>publications</h1>
-        <div>{this.props.match.params.key}</div>
         {this.postUser()}
+        {this.postPublications()}
       </Fragment>
     );
   }
