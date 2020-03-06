@@ -24,28 +24,41 @@ export const getPublications = () => async dispatch => {
 };
 
 export const getPublicationByUser = (key) => async (dispatch, getState) => {
+    dispatch({
+      type:LOADING
+    });
     const { users } = getState().userReducer;
     const { publications } = getState().publicationReducer;
     const user_id = users[key].id;
-    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
-    const updatedPublication = [
-      ...publications,
-      response.data
-    ];
-    const publicationKey = updatedPublication.length - 1;
-    const updatedUser =    [ ...users ];
-    updatedUser[key]={
-      ...users[key],
-      publicationKey
+    try {
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
+        const updatedPublication = [
+          ...publications,
+          response.data
+        ];
+        dispatch({
+          type: GET_PUBLICATION_BY_USER,
+          payload: updatedPublication
+
+      });
+        const publicationKey = updatedPublication.length - 1;
+        const updatedUser =    [ ...users ];
+        updatedUser[key]={
+          ...users[key],
+          publicationKey
+        }
+        dispatch({
+          type: GET_USERS,
+          payload: updatedUser
+
+      });
     }
-    dispatch({
-      type: GET_USERS,
-      payload: updatedUser
+    catch(error) {
+      console.log(`Error: ${error.message}`);
+      dispatch({
+        type:ERROR,
+        payload:"Publications not avalaibles."
+      });
+    }
 
-  });
-    dispatch({
-        type: GET_PUBLICATION_BY_USER,
-        payload: updatedPublication
-
-    });
 }

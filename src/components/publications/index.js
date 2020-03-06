@@ -72,12 +72,12 @@ class Publications extends Component {
 
     if (!publications.length) return;
     
-    if (!("publicaciones_key" in users[key])) return;
+    if (!("publicationKey" in users[key])) return;
 
-    const { publications_key } = users[key];
+    const { publicationKey } = users[key];
 
-    return publications[publications_key].map((publication) => {
-      return ( <div className="pub_title">
+    return publications[publicationKey].map((publication) => {
+      return ( <div className="pub_title" key={publication.id} onClick={() => alert(publication.id)}>
             <h2>
               {publication.title}
             </h2>

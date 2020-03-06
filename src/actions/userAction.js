@@ -16,7 +16,7 @@ export const getUsers = () => async dispatch => {
     console.log(`Error: ${error.message}`);
     dispatch({
       type: ERROR,
-      payload: 'Something was wrong, reject late'
+      payload: 'Information of user not avalaible.'
     });
   }
 };
