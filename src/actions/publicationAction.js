@@ -32,9 +32,16 @@ export const getPublicationByUser = (key) => async (dispatch, getState) => {
     const user_id = users[key].id;
     try {
         const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
+
+        const news = response.data.map((publication) => ({
+          ...publication,
+          comments: [],
+          open: false,
+        }));
+        
         const updatedPublication = [
           ...publications,
-          response.data
+          news
         ];
         dispatch({
           type: GET_PUBLICATION_BY_USER,
@@ -61,4 +68,8 @@ export const getPublicationByUser = (key) => async (dispatch, getState) => {
       });
     }
 
+}
+
+export const openClose = (publicationKey, commentKey) => (dispatch) => {
+  console.log(`${publicationKey} ${commentKey}`);
 }

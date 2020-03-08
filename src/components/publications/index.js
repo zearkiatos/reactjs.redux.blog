@@ -6,7 +6,7 @@ import * as userAction from "../../actions/userAction";
 import * as publicationAction from "../../actions/publicationAction";
 
 const { getUsers } = userAction;
-const { getPublicationByUser } = publicationAction;
+const { getPublicationByUser, openClose } = publicationAction;
 
 class Publications extends Component {
   async componentDidMount() {
@@ -76,8 +76,15 @@ class Publications extends Component {
 
     const { publicationKey } = users[key];
 
-    return publications[publicationKey].map((publication) => {
-      return ( <div className="pub_title" key={publication.id} onClick={() => alert(publication.id)}>
+    return this.showInfo(
+      publications[publicationKey],
+      publicationKey
+    );
+  };
+
+  showInfo = (publications, publicationKey) => (
+    publications.map((publication, commentKey) => {
+      return ( <div className="pub_title" key={publication.id} onClick={() => this.props.openClose(publicationKey,commentKey)}>
             <h2>
               {publication.title}
             </h2>
@@ -85,8 +92,9 @@ class Publications extends Component {
               {publication.body}
             </h3>
       </div>);
-    });
-  };
+    })
+  );
+
   render() {
     console.log(this.props);
     return (
@@ -105,6 +113,7 @@ const mapStateToProps = ({ userReducer, publicationReducer }) => {
 };
 const mapDispatchToProps = {
   getUsers,
-  getPublicationByUser
+  getPublicationByUser,
+  openClose
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Publications);
