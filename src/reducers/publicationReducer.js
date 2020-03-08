@@ -1,4 +1,11 @@
-import { UPDATING, LOADING, ERROR, COMMENT_LOADING, COMMENT_ERROR } from "../types/publicationType";
+import {
+  UPDATING,
+  LOADING,
+  ERROR,
+  COMMENT_UPDATING,
+  COMMENT_LOADING,
+  COMMENT_ERROR
+} from "../types/publicationType";
 const BEGIN_PUBLICATION_STATE = {
   publications: [],
   loading: false,
@@ -20,6 +27,13 @@ export default (state = BEGIN_PUBLICATION_STATE, action) => {
       return { ...state, loading: true };
     case ERROR:
       return { ...state, error: action.payload, loading: false };
+    case COMMENT_UPDATING:
+      return {
+        ...state,
+        publications: action.payload,
+        commentLoading: false,
+        commentError: ""
+      };
     case COMMENT_LOADING:
       return { ...state, commetLoading: true };
     case COMMENT_ERROR:

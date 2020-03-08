@@ -5,7 +5,8 @@ import {
   LOADING,
   ERROR,
   COMMENT_ERROR,
-  COMMENT_LOADING
+  COMMENT_LOADING,
+  COMMENT_UPDATING
 } from "../types/publicationType";
 import * as userType from "../types/userType";
 const { GET_USERS } = userType;
@@ -113,7 +114,7 @@ export const getComments = (publicationKey, commentKey) => async (dispatch, getS
     updatedPublication[publicationKey][commentKey] = updated;
 
     dispatch({
-      type: UPDATING,
+      type: COMMENT_UPDATING,
       payload: updatedPublication
     });
   }

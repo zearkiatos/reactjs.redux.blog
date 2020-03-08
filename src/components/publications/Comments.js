@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import Spinner from "../general/Spinner";
 import Fatal from "../general/Fatal";
 const Comments = props => {
-  if (props.loading) {
-    return <Spinner />;
+  if (props.commentError) {
+    return <Fatal message={props.commentError} />;
   }
-  if (props.error) {
-    return <Fatal message={props.error} />;
+  if (props.commentLoading && !props.comments.length) {
+    return <Spinner />;
   }
   const printComments = () =>
     props.comments.map(comment => (
@@ -21,5 +21,5 @@ const Comments = props => {
     ));
   return <ul>{printComments()}</ul>;
 };
-const mapStateToProps = ({ publicationsReducer }) => publicationsReducer;
+const mapStateToProps = ({ publicationReducer }) => publicationReducer;
 export default connect(mapStateToProps)(Comments);
