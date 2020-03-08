@@ -91,3 +91,7 @@ export const openClose = (publicationKey, commentKey) => (
     payload: updatedPublication
   });
 };
+
+export const getComments = (publicationKey, commentKey) => (dispatch, getState) => {
+
+};

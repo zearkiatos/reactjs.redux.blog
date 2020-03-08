@@ -4,9 +4,10 @@ import Spinner from "../general/Spinner";
 import Fatal from "../general/Fatal";
 import * as userAction from "../../actions/userAction";
 import * as publicationAction from "../../actions/publicationAction";
+import Comments from "./Comments";
 
 const { getUsers } = userAction;
-const { getPublicationByUser, openClose } = publicationAction;
+const { getPublicationByUser, openClose, getComments } = publicationAction;
 
 class Publications extends Component {
   async componentDidMount() {
@@ -85,14 +86,25 @@ class Publications extends Component {
         <div
           className="pub_title"
           key={publication.id}
-          onClick={() => this.props.openClose(publicationKey, commentKey)}
+          onClick={() =>
+            this.props.showComments(
+              publicationKey,
+              commentKey,
+              publication.comments
+            )
+          }
         >
           <h2>{publication.title}</h2>
           <h3>{publication.body}</h3>
-          {publication.open ? "Opened" : "Closed"}
+          {publication.open ? <Comments /> : "Closed"}
         </div>
       );
     });
+
+  showComments = (publicationKey, commentKey, comments) => {
+    this.props.openClose(publicationKey, commentKey);
+    this.props.getCommets(publicationKey, commentKey);
+  };
 
   render() {
     console.log(this.props);
@@ -113,6 +125,7 @@ const mapStateToProps = ({ userReducer, publicationReducer }) => {
 const mapDispatchToProps = {
   getUsers,
   getPublicationByUser,
-  openClose
+  openClose,
+  getComments
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Publications);
