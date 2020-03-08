@@ -96,7 +96,7 @@ class Publications extends Component {
         >
           <h2>{publication.title}</h2>
           <h3>{publication.body}</h3>
-          {publication.open ? <Comments /> : "Closed"}
+          {publication.open ? <Comments comments={publication.comments} /> : "Closed"}
         </div>
       );
     });

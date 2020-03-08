@@ -3,7 +3,9 @@ import {
   GET_PUBLICATIONS,
   UPDATING,
   LOADING,
-  ERROR
+  ERROR,
+  COMMENT_ERROR,
+  COMMENT_LOADING
 } from "../types/publicationType";
 import * as userType from "../types/userType";
 const { GET_USERS } = userType;
@@ -95,21 +97,32 @@ export const openClose = (publicationKey, commentKey) => (
 export const getComments = (publicationKey, commentKey) => async (dispatch, getState) => {
   const { publications } = getState().publicationReducer;
   const selected = publications[publicationKey][commentKey];
-
-  const response = await axios.get(  `https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`)
-
-  const updated = {
-    ...selected,
-    comments: response.data
-  };
-
-  const updatedPublication = [...publications];
-  updatedPublication[publicationKey] = [...publications[publicationKey]];
-  updatedPublication[publicationKey][commentKey] = updated;
-
   dispatch({
-    type: UPDATING,
-    payload: updatedPublication
+    type: COMMENT_LOADING,
   });
+  try {
+    const response = await axios.get(  `https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`)
+
+    const updated = {
+      ...selected,
+      comments: response.data
+    };
+
+    const updatedPublication = [...publications];
+    updatedPublication[publicationKey] = [...publications[publicationKey]];
+    updatedPublication[publicationKey][commentKey] = updated;
+
+    dispatch({
+      type: UPDATING,
+      payload: updatedPublication
+    });
+  }
+  catch(error) {
+    console.log(`Error: ${error.message}`);
+    dispatch({
+      type: COMMENT_ERROR,
+      payload: 'Comments not allowed.'
+    })
+  }
 
 };
