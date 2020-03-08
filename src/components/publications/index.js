@@ -71,29 +71,28 @@ class Publications extends Component {
     }
 
     if (!publications.length) return;
-    
+
     if (!("publicationKey" in users[key])) return;
 
     const { publicationKey } = users[key];
 
-    return this.showInfo(
-      publications[publicationKey],
-      publicationKey
-    );
+    return this.showInfo(publications[publicationKey], publicationKey);
   };
 
-  showInfo = (publications, publicationKey) => (
+  showInfo = (publications, publicationKey) =>
     publications.map((publication, commentKey) => {
-      return ( <div className="pub_title" key={publication.id} onClick={() => this.props.openClose(publicationKey,commentKey)}>
-            <h2>
-              {publication.title}
-            </h2>
-            <h3>
-              {publication.body}
-            </h3>
-      </div>);
-    })
-  );
+      return (
+        <div
+          className="pub_title"
+          key={publication.id}
+          onClick={() => this.props.openClose(publicationKey, commentKey)}
+        >
+          <h2>{publication.title}</h2>
+          <h3>{publication.body}</h3>
+          {publication.open ? "Opened" : "Closed"}
+        </div>
+      );
+    });
 
   render() {
     console.log(this.props);

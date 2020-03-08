@@ -1,6 +1,11 @@
 import axios from "axios";
-import { GET_PUBLICATIONS, GET_PUBLICATION_BY_USER, LOADING, ERROR } from "../types/publicationType";
-import * as userType from '../types/userType';
+import {
+  GET_PUBLICATIONS,
+  UPDATING,
+  LOADING,
+  ERROR
+} from "../types/publicationType";
+import * as userType from "../types/userType";
 const { GET_USERS } = userType;
 export const getPublications = () => async dispatch => {
   dispatch({
@@ -23,53 +28,66 @@ export const getPublications = () => async dispatch => {
   }
 };
 
-export const getPublicationByUser = (key) => async (dispatch, getState) => {
+export const getPublicationByUser = key => async (dispatch, getState) => {
+  dispatch({
+    type: LOADING
+  });
+  const { users } = getState().userReducer;
+  const { publications } = getState().publicationReducer;
+  const user_id = users[key].id;
+  try {
+    const response = await axios.get(
+      `https://jsonplaceholder.typicode.com/posts?userId=${user_id}`
+    );
+
+    const news = response.data.map(publication => ({
+      ...publication,
+      comments: [],
+      open: false
+    }));
+
+    const updatedPublication = [...publications, news];
     dispatch({
-      type:LOADING
+      type: UPDATING,
+      payload: updatedPublication
     });
-    const { users } = getState().userReducer;
-    const { publications } = getState().publicationReducer;
-    const user_id = users[key].id;
-    try {
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
+    const publicationKey = updatedPublication.length - 1;
+    const updatedUser = [...users];
+    updatedUser[key] = {
+      ...users[key],
+      publicationKey
+    };
+    dispatch({
+      type: GET_USERS,
+      payload: updatedUser
+    });
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+    dispatch({
+      type: ERROR,
+      payload: "Publications not avalaibles."
+    });
+  }
+};
 
-        const news = response.data.map((publication) => ({
-          ...publication,
-          comments: [],
-          open: false,
-        }));
-        
-        const updatedPublication = [
-          ...publications,
-          news
-        ];
-        dispatch({
-          type: GET_PUBLICATION_BY_USER,
-          payload: updatedPublication
+export const openClose = (publicationKey, commentKey) => (
+  dispatch,
+  getState
+) => {
+  const { publications } = getState().publicationReducer;
+  const selected = publications[publicationKey][commentKey];
 
-      });
-        const publicationKey = updatedPublication.length - 1;
-        const updatedUser =    [ ...users ];
-        updatedUser[key]={
-          ...users[key],
-          publicationKey
-        }
-        dispatch({
-          type: GET_USERS,
-          payload: updatedUser
+  const updated = {
+    ...selected,
+    open: !selected.open
+  };
 
-      });
-    }
-    catch(error) {
-      console.log(`Error: ${error.message}`);
-      dispatch({
-        type:ERROR,
-        payload:"Publications not avalaibles."
-      });
-    }
+  const updatedPublication = [...publications];
+  updatedPublication[publicationKey] = [...publications[publicationKey]];
+  updatedPublication[publicationKey][commentKey] = updated;
 
-}
-
-export const openClose = (publicationKey, commentKey) => (dispatch) => {
-  console.log(`${publicationKey} ${commentKey}`);
-}
+  dispatch({
+    type: UPDATING,
+    payload: updatedPublication
+  });
+};
