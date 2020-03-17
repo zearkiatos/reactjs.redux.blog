@@ -8,9 +8,18 @@ export const getTasks = () => async dispatch => {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/todos"
     );
+    const tasks = {};
+    response.data.map((task) => (
+        tasks[task.userId] = {
+            ...tasks[task.userId],
+            [task.id]: {
+                ...task
+            }
+        }
+    ));
     dispatch({
       type: GET_TASKS,
-      payload: response.data
+      payload: tasks
     });
   } catch (error) {
     console.log(`Error: ${error.message}`);
