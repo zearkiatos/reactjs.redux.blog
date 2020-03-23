@@ -29,3 +29,17 @@ export const getTasks = () => async dispatch => {
     });
   }
 };
+
+export const changeUserId = (userId) => (dispatch) => {
+  dispatch({
+    type: 'change_user_id',
+    payload:userId
+  })
+}
+
+export const changeTitle = (title) => (dispatch) => {
+  dispatch({
+    type: 'change_title',
+    payload:title
+  })
+}
