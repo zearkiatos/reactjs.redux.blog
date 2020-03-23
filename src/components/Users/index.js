@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../actions/userAction";
-import Spinner from "../general/Spinner";
-import Fatal from "../general/Fatal";
+import Spinner from "../General/Spinner";
+import Fatal from "../General/Fatal";
 import Table from "./Table";
 class Users extends Component {
   componentDidMount() {

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import Spinner from "../general/Spinner";
-import Fatal from "../general/Fatal";
+import Spinner from "../General/Spinner";
+import Fatal from "../General/Fatal";
 const Comments = props => {
   if (props.commentError) {
     return <Fatal message={props.commentError} />;

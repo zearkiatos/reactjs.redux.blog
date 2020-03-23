@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import Spinner from "../general/Spinner";
-import Fatal from "../general/Fatal";
+import Spinner from "../General/Spinner";
+import Fatal from "../General/Fatal";
 import * as userAction from "../../actions/userAction";
 import * as publicationAction from "../../actions/publicationAction";
 import Comments from "./Comments";

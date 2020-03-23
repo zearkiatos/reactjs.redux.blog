@@ -41,3 +41,11 @@ body {
 li {
     margin:15px 0;
 }
+
+.container{
+    &-tasks {
+        font-size:20px;
+        margin-left:5px;
+        margin-bottom: 70px;
+    }
+}
