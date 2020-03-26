@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import * as taskAction from "../../actions/taskAction";
+import Spinner from "../General/Spinner";
+import Fatal from "../General/Fatal";
 class Save extends Component {
   changeUserId = event => {
     this.props.changeUserId(event.target.value);
@@ -19,6 +22,32 @@ class Save extends Component {
     };
 
     add(newTask);
+  }
+
+  disable = () => {
+    const { userId, title, loading } = this.props;
+
+    if (loading) {
+      return true;
+    }
+
+    if (!userId || !title) {
+      return true;
+    }
+
+    return false;
+  }
+
+  showAction = () => {
+    const { error, loading } = this.props;
+
+    if (loading) {
+      return <Spinner />;
+    }
+
+    if (error) {
+      return <Fatal message={error} />;
+    }
   };
   render() {
     return (
@@ -33,10 +62,17 @@ class Save extends Component {
         <br />
         <br />
         Title:
-        <input type="text" value={this.props.title} onChange={this.changeTitle} />
+        <input
+          type="text"
+          value={this.props.title}
+          onChange={this.changeTitle}
+        />
         <br />
         <br />
-        <button onClick={this.save()}>Save</button>
+        <button onClick={this.save()} disabled={this.disable()}>
+          Save
+        </button>
+        {this.showAction()}
       </div>
     );
   }

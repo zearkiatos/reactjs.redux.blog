@@ -1,5 +1,12 @@
 import axios from "axios";
-import { GET_TASKS, LOADING, ERROR, CHANGE_USER_ID, CHANGE_TITLE, ADDED_TASK } from "../types/taskType";
+import {
+  GET_TASKS,
+  LOADING,
+  ERROR,
+  CHANGE_USER_ID,
+  CHANGE_TITLE,
+  ADDED_TASK
+} from "../types/taskType";
 export const getTasks = () => async dispatch => {
   dispatch({
     type: LOADING
@@ -45,24 +52,20 @@ export const changeTitle = title => dispatch => {
   });
 };
 
-export const add = newTask => async (dispatch) => {
+export const add = newTask => async dispatch => {
   dispatch({
-    type: LOADING,
+    type: LOADING
   });
   try {
-    const response = await axios.post('https://jsonplaceholder.typicode.com/todos', newTask);
-    if(response.data) {
-      dispatch({
-        type:ADDED_TASK
-      });
-      console.log(response.data);
-    }
-  }
-  catch(error) {
+    await axios.post("https://jsonplaceholder.typicode.com/todos", newTask);
+    dispatch({
+      type: ADDED_TASK
+    });
+  } catch (error) {
     console.log(error.message);
     dispatch({
       type: ERROR,
-      payload: 'Trying again late'
+      payload: "Service is not allow in this moment"
     });
   }
 };

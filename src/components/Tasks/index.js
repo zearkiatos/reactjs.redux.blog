@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import * as taskAction from "../../actions/taskAction";
 import Spinner from "../General/Spinner";
 import Fatal from "../General/Fatal";
 
 class Tasks extends Component {
   componentDidMount() {
+    const { tasks, getTasks } = this.props;
+    if (!Object.keys(tasks).length) {
+      getTasks();
+    }
     this.props.getTasks();
   }
 
@@ -43,14 +47,13 @@ class Tasks extends Component {
   };
   render() {
     return (
-    <div>
-      <button>
-        <Link to='/tasks/Save'>
-          Add
-        </Link>
-      </button>
-      {this.showContent()
-    }</div>);
+      <div>
+        <button>
+          <Link to="/tasks/Save">Add</Link>
+        </button>
+        {this.showContent()}
+      </div>
+    );
   }
 }
 const mapStateToProps = ({ taskReducer }) => taskReducer;
