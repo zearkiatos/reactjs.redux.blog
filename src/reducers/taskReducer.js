@@ -11,7 +11,8 @@ const BEGIN_TASK_STATE = {
   loading: false,
   error: "",
   userId: "",
-  title: ""
+  title: "",
+  return: false
 };
 
 export default (state = BEGIN_TASK_STATE, action) => {
@@ -21,7 +22,8 @@ export default (state = BEGIN_TASK_STATE, action) => {
         ...state,
         tasks: action.payload,
         loading: false,
-        error: ""
+        error: "",
+        return: false
       };
     case LOADING:
       return { ...state, loading: true };
@@ -37,8 +39,9 @@ export default (state = BEGIN_TASK_STATE, action) => {
         tasks: {},
         loading: false,
         error: "",
-        userId: "",
-        title: ""
+        return: true,
+        userId:"",
+        title:""
       };
     default:
       return state;

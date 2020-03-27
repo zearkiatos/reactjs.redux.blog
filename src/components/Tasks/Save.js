@@ -52,6 +52,9 @@ class Save extends Component {
   render() {
     return (
       <div>
+        {
+          (this.props.return)? <Redirect to='/tasks' /> : ''
+        }
         <h1>Save Task</h1>
         User Id:
         <input
@@ -69,7 +72,7 @@ class Save extends Component {
         />
         <br />
         <br />
-        <button onClick={this.save()} disabled={this.disable()}>
+        <button onClick={this.save} disabled={this.disable()}>
           Save
         </button>
         {this.showAction()}
