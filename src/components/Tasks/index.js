@@ -42,6 +42,12 @@ class Tasks extends Component {
       <div key={taskId}>
         <input type="checkbox" defaultChecked={byUser[taskId].completed} />
         {byUser[taskId].title}
+        <button className="ml-20">
+          <Link to={`/tasks/save/${userId}/${taskId}`}>Editar</Link>
+        </button>
+        <button className="ml-20">
+          Eliminar
+        </button>
       </div>
     ));
   };

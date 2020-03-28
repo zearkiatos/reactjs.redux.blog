@@ -69,3 +69,7 @@ export const add = newTask => async dispatch => {
     });
   }
 };
+
+export const edit = editedTask => dispatch => {
+  console.log(editedTask);
+};
