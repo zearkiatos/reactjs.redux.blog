@@ -1,0 +1,57 @@
+@import './styles/variables';
+body {
+    margin:0;
+}
+.m-100 {
+    margin:100px;
+}
+
+.table {
+    width:100%;
+    text-align:left;
+    td {
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+}
+
+#menu {
+    background-color:$principalColor;
+    padding:20px;
+    font-size:20px;
+    a {
+        color:white;
+        padding-right:50px;
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.red {
+    color:$error;
+}
+
+.pub_title {
+    border-top:1px solid black;
+    cursor:pointer;
+}
+
+li {
+    margin:15px 0;
+}
+
+.container{
+    &-tasks {
+        font-size:20px;
+        margin-left:5px;
+        margin-bottom: 70px;
+    }
+}
+
+.ml {
+    &-20{
+        margin-left:20px;
+    }
+}
