@@ -109,7 +109,6 @@ class Publications extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <Fragment>
         {this.postUser()}

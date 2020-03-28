@@ -6,7 +6,6 @@ import Fatal from "../General/Fatal";
 import Table from "./Table";
 class Users extends Component {
   componentDidMount() {
-    console.log(this.props);
     if (!this.props.users.length) {
       this.props.getUsers();
     }

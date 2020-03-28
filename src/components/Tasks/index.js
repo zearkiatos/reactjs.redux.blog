@@ -14,8 +14,8 @@ class Tasks extends Component {
   }
 
   componentDidUpdate() {
-    const { tasks, getTasks } = this.props;
-    if (!Object.keys(tasks).length) {
+    const { tasks, getTasks, loading } = this.props;
+    if (!Object.keys(tasks).length && !loading) {
       getTasks();
     }
   }
@@ -62,7 +62,6 @@ class Tasks extends Component {
     ));
   };
   render() {
-    console.log(this.props.tasks);
     return (
       <div>
         <button>

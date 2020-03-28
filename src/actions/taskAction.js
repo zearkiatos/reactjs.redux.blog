@@ -6,7 +6,8 @@ import {
   CHANGE_USER_ID,
   CHANGE_TITLE,
   SAVE_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  CLEAR_TASK
 } from "../types/taskType";
 export const getTasks = () => async dispatch => {
   dispatch({
@@ -116,10 +117,9 @@ export const deleting = taskId => async dispatch => {
     type: LOADING
   });
   try {
-    const response = await axios.delete(
+    await axios.delete(
       `https://jsonplaceholder.typicode.com/todos/${taskId}`
     );
-    console.log(response);
     dispatch({
       type: GET_TASKS,
       payload: {}
@@ -132,3 +132,9 @@ export const deleting = taskId => async dispatch => {
     })
   }
 };
+
+export const clearForma = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_TASK
+  })
+}
