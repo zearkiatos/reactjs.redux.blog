@@ -23,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "sass --watch src:src"
+    "sass": "sass --watch src:src",
+    "deploy": "webpack-dev-server --mode development"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,5 +40,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
