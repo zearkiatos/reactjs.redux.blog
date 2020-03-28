@@ -66,7 +66,7 @@ export const add = newTask => async dispatch => {
     console.log(error.message);
     dispatch({
       type: ERROR,
-      payload: "Service is not allow in this moment"
+      payload: "Service is not allow in this moment."
     });
   }
 };
@@ -87,7 +87,7 @@ export const edit = editedTask => async dispatch => {
     console.log(error.message);
     dispatch({
       type: ERROR,
-      payload: "Service is not allow in this moment"
+      payload: "Service is not allow in this moment."
     });
   }
 };
@@ -99,7 +99,7 @@ export const changeCheck = (userId, taskId) => (dispatch, getState) => {
     ...tasks
   };
   updated[userId] = {
-    ...tasks[userId],
+    ...tasks[userId]
   };
   updated[userId][taskId] = {
     ...tasks[userId][taskId],
@@ -108,5 +108,27 @@ export const changeCheck = (userId, taskId) => (dispatch, getState) => {
   dispatch({
     type: UPDATE_TASK,
     payload: updated
-  })
+  });
+};
+
+export const deleting = taskId => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+  try {
+    const response = await axios.delete(
+      `https://jsonplaceholder.typicode.com/todos/${taskId}`
+    );
+    console.log(response);
+    dispatch({
+      type: GET_TASKS,
+      payload: {}
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type:ERROR,
+      payload:"Service is not allow in this moment."
+    })
+  }
 };

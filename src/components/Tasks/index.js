@@ -11,7 +11,13 @@ class Tasks extends Component {
     if (!Object.keys(tasks).length) {
       getTasks();
     }
-    this.props.getTasks();
+  }
+
+  componentDidUpdate() {
+    const { tasks, getTasks } = this.props;
+    if (!Object.keys(tasks).length) {
+      getTasks();
+    }
   }
 
   showContent = () => {
@@ -33,7 +39,7 @@ class Tasks extends Component {
   };
 
   pushTasks = userId => {
-    const { tasks, changeCheck } = this.props;
+    const { tasks, changeCheck, deleting } = this.props;
     const byUser = {
       ...tasks[userId]
     };
@@ -49,11 +55,14 @@ class Tasks extends Component {
         <button className="ml-20">
           <Link to={`/tasks/save/${userId}/${taskId}`}>Editar</Link>
         </button>
-        <button className="ml-20">Eliminar</button>
+        <button className="ml-20" onClick={() => deleting(taskId)}>
+          Eliminar
+        </button>
       </div>
     ));
   };
   render() {
+    console.log(this.props.tasks);
     return (
       <div>
         <button>
