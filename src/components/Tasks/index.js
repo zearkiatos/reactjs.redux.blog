@@ -33,21 +33,23 @@ class Tasks extends Component {
   };
 
   pushTasks = userId => {
-    const { tasks } = this.props;
+    const { tasks, changeCheck } = this.props;
     const byUser = {
       ...tasks[userId]
     };
 
     return Object.keys(byUser).map(taskId => (
       <div key={taskId}>
-        <input type="checkbox" defaultChecked={byUser[taskId].completed} />
+        <input
+          type="checkbox"
+          defaultChecked={byUser[taskId].completed}
+          onChange={() => changeCheck(userId, taskId)}
+        />
         {byUser[taskId].title}
         <button className="ml-20">
           <Link to={`/tasks/save/${userId}/${taskId}`}>Editar</Link>
         </button>
-        <button className="ml-20">
-          Eliminar
-        </button>
+        <button className="ml-20">Eliminar</button>
       </div>
     ));
   };

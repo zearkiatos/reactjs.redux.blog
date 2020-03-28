@@ -5,7 +5,8 @@ import {
   ERROR,
   CHANGE_USER_ID,
   CHANGE_TITLE,
-  ADDED_TASK
+  SAVE_TASK,
+  UPDATE_TASK
 } from "../types/taskType";
 export const getTasks = () => async dispatch => {
   dispatch({
@@ -59,7 +60,7 @@ export const add = newTask => async dispatch => {
   try {
     await axios.post("https://jsonplaceholder.typicode.com/todos", newTask);
     dispatch({
-      type: ADDED_TASK
+      type: SAVE_TASK
     });
   } catch (error) {
     console.log(error.message);
@@ -70,6 +71,42 @@ export const add = newTask => async dispatch => {
   }
 };
 
-export const edit = editedTask => dispatch => {
-  console.log(editedTask);
+export const edit = editedTask => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+  try {
+    await axios.put(
+      `https://jsonplaceholder.typicode.com/todos/${editedTask.userId}`,
+      editedTask
+    );
+    dispatch({
+      type: SAVE_TASK
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: ERROR,
+      payload: "Service is not allow in this moment"
+    });
+  }
+};
+
+export const changeCheck = (userId, taskId) => (dispatch, getState) => {
+  const { tasks } = getState().taskReducer;
+  const selected = tasks[userId][taskId];
+  const updated = {
+    ...tasks
+  };
+  updated[userId] = {
+    ...tasks[userId],
+  };
+  updated[userId][taskId] = {
+    ...tasks[userId][taskId],
+    completed: !selected.completed
+  };
+  dispatch({
+    type: UPDATE_TASK,
+    payload: updated
+  })
 };

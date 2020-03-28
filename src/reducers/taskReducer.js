@@ -4,7 +4,8 @@ import {
   ERROR,
   CHANGE_USER_ID,
   CHANGE_TITLE,
-  ADDED_TASK
+  SAVE_TASK,
+  UPDATE_TASK
 } from "../types/taskType";
 const BEGIN_TASK_STATE = {
   tasks: [],
@@ -33,16 +34,18 @@ export default (state = BEGIN_TASK_STATE, action) => {
       return { ...state, userId: action.payload };
     case CHANGE_TITLE:
       return { ...state, title: action.payload };
-    case ADDED_TASK:
+    case SAVE_TASK:
       return {
         ...state,
         tasks: {},
         loading: false,
         error: "",
         return: true,
-        userId:"",
-        title:""
+        userId: "",
+        title: ""
       };
+    case UPDATE_TASK:
+      return { ...state, tasks: action.payload };
     default:
       return state;
   }
